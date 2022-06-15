@@ -1,3 +1,17 @@
 <resources>
     <string name="app_name">RickAndMortyApp</string>
+    <string name="alive">Alive</string>
+    <string name="dead">Dead</string>
+    <string name="unknown">Unknown</string>
+    <string name="status">Status</string>
+    <string name="search_character">Search Character</string>
+    <string name="rick_and_morty_app">Rick And Morty App</string>
+    <string name="list_type_icon">list type icon</string>
+    <string name="character_image">Character Image</string>
+    <string name="information">Information</string>
+    <string name="add_favorite_character">Add favorite character</string>
+    <string name="delete_favorite_character">Delete favorite character</string>
+    <string name="favorite_button">Favorite Button</string>
+    <string name="please_connect_to_internet">Please connect to Internet</string>
+    <string name="please_retry_no_internet">Please Retry(No Internet)</string>
 </resources>
