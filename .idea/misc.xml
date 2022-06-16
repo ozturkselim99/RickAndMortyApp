@@ -4,10 +4,14 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="app/src/main/res/drawable/custom_input.xml" value="0.2345" />
+        <entry key="app/src/main/res/drawable/ic_add.xml" value="0.2345" />
+        <entry key="app/src/main/res/drawable/ic_arrow_back.xml" value="0.2345" />
         <entry key="app/src/main/res/drawable/ic_favorite.xml" value="0.2345" />
         <entry key="app/src/main/res/drawable/ic_grid.xml" value="0.2345" />
         <entry key="app/src/main/res/drawable/ic_line.xml" value="0.2345" />
+        <entry key="app/src/main/res/drawable/ic_remove.xml" value="0.2345" />
         <entry key="app/src/main/res/drawable/ic_search.xml" value="0.2345" />
+        <entry key="app/src/main/res/layout/activity_character_detail.xml" value="0.18342391304347827" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.18342391304347827" />
         <entry key="app/src/main/res/layout/character_item_grid.xml" value="0.18342391304347827" />
         <entry key="app/src/main/res/layout/character_item_row.xml" value="0.18342391304347827" />

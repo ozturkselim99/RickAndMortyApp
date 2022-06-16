@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">RickAndMortyApp</string>
+    <string name="app_name">assessment-118</string>
     <string name="alive">Alive</string>
     <string name="dead">Dead</string>
     <string name="unknown">Unknown</string>
@@ -9,6 +9,14 @@
     <string name="list_type_icon">list type icon</string>
     <string name="character_image">Character Image</string>
     <string name="information">Information</string>
+    <string name="status_">Status:</string>
+    <string name="species">Species:</string>
+    <string name="number_of_episodes">Number of episodes:</string>
+    <string name="gender">Gender:</string>
+    <string name="origin_location_name">Origin location name:</string>
+    <string name="last_know_location_name">Last know location name:</string>
+    <string name="last_seen_episode_name_and_air_date">Last seen episode name and air date:</string>
+    <string name="back_button">Back Button</string>
     <string name="add_favorite_character">Add favorite character</string>
     <string name="delete_favorite_character">Delete favorite character</string>
     <string name="favorite_button">Favorite Button</string>

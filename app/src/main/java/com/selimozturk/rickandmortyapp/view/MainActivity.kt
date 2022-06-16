@@ -1,11 +1,11 @@
 package com.selimozturk.rickandmortyapp.view
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
@@ -40,6 +40,12 @@ class MainActivity : AppCompatActivity() {
         charactersAdapter.addLoadStateListener { loadStates ->
             binding.charactersLoadingProgressBar.visibility = if (loadStates.refresh is LoadState.Loading) View.VISIBLE else View.GONE
             binding.retryButton.visibility=(if (loadStates.refresh is LoadState.Error) View.VISIBLE else View.GONE)
+        }
+        charactersAdapter.onItemClicked = {
+            val intent = Intent(this, CharacterDetailActivity::class.java)
+            intent.putExtra("characterId", it.id.toString())
+            intent.putExtra("isCharacterFavorite", it.isFavorite.toString())
+            startActivity(intent)
         }
         binding.retryButton.setOnClickListener {
             charactersAdapter.retry()
