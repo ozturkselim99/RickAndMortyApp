@@ -1,4 +1,4 @@
-package com.selimozturk.rickandmortyapp.adapters
+package com.selimozturk.rickandmortyapp.ui.characters.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

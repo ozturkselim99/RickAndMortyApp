@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">assessment-118</string>
+    <string name="app_name">Rick And Morty</string>
     <string name="alive">Alive</string>
     <string name="dead">Dead</string>
     <string name="unknown">Unknown</string>

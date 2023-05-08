@@ -1,4 +1,4 @@
-package com.selimozturk.rickandmortyapp.view
+package com.selimozturk.rickandmortyapp.ui.characters
 
 import android.content.Intent
 import android.os.Bundle
@@ -13,17 +13,17 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.chip.Chip
 import com.selimozturk.rickandmortyapp.R
-import com.selimozturk.rickandmortyapp.adapters.CharactersAdapter
+import com.selimozturk.rickandmortyapp.ui.characters.adapter.CharactersAdapter
 import com.selimozturk.rickandmortyapp.databinding.ActivityMainBinding
 import com.selimozturk.rickandmortyapp.domain.models.CharacterDomainData
+import com.selimozturk.rickandmortyapp.ui.character_detail.CharacterDetailActivity
 import com.selimozturk.rickandmortyapp.util.showToast
-import com.selimozturk.rickandmortyapp.viewmodels.CharactersViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
-    
+
     private val viewModel: CharactersViewModel by viewModels()
     private var listTypeControl: Boolean = true
     private val charactersAdapter = CharactersAdapter()

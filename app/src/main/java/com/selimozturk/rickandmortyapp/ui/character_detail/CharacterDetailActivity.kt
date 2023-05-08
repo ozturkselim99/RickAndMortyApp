@@ -1,4 +1,4 @@
-package com.selimozturk.rickandmortyapp.view
+package com.selimozturk.rickandmortyapp.ui.character_detail
 
 import android.os.Bundle
 import android.view.View
@@ -9,7 +9,6 @@ import com.selimozturk.rickandmortyapp.domain.models.CharacterDetailDomainData
 import com.selimozturk.rickandmortyapp.domain.models.CharacterDomainData
 import com.selimozturk.rickandmortyapp.util.setVisible
 import com.selimozturk.rickandmortyapp.util.showToast
-import com.selimozturk.rickandmortyapp.viewmodels.CharacterDetailViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

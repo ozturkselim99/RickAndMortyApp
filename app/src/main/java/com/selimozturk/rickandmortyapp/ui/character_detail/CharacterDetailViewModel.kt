@@ -1,4 +1,4 @@
-package com.selimozturk.rickandmortyapp.viewmodels
+package com.selimozturk.rickandmortyapp.ui.character_detail
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

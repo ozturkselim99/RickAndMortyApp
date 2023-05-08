@@ -1,4 +1,4 @@
-package com.selimozturk.rickandmortyapp.adapters
+package com.selimozturk.rickandmortyapp.ui.characters.adapter
 
 import androidx.recyclerview.widget.DiffUtil
 import com.selimozturk.rickandmortyapp.domain.models.CharacterDomainData
