@@ -26,9 +26,29 @@ class CharacterDetailActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+    }
+
+    override fun onStart() {
+        super.onStart()
+        initViews()
+        setupObservers()
+    }
+
+    private fun setupObservers() {
+        viewModel.character.observe(this) {
+            binding.characterItem = it
+            characterDetailDomainData = it
+        }
+        viewModel.loading.observe(this) {
+            binding.characterDetailLoadingProgressBar.setVisible(it)
+        }
+    }
+
+    private fun initViews() {
         intent.getStringExtra("characterId")?.let {
             viewModel.getCharacter(it.toInt())
         }
+
         intent.getStringExtra("isCharacterFavorite")?.let {
             if (it.toBoolean()) {
                 binding.addFavoriteButton.visibility = View.GONE
@@ -38,25 +58,17 @@ class CharacterDetailActivity : AppCompatActivity() {
                 binding.deleteFavoriteButton.visibility = View.GONE
             }
         }
+
         binding.backButton.setOnClickListener {
             onBackPressed()
         }
+
         binding.addFavoriteButton.setOnClickListener {
             addFavoriteCharacter(characterDetailDomainData)
         }
+
         binding.deleteFavoriteButton.setOnClickListener {
             deleteFavoriteCharacter(characterDetailDomainData.id)
-        }
-    }
-
-    override fun onStart() {
-        super.onStart()
-        viewModel.character.observe(this) {
-            binding.characterItem = it
-            characterDetailDomainData = it
-        }
-        viewModel.loading.observe(this){
-            binding.characterDetailLoadingProgressBar.setVisible(it)
         }
     }
 

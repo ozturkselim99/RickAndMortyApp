@@ -15,6 +15,7 @@ import com.google.android.material.chip.Chip
 import com.selimozturk.rickandmortyapp.R
 import com.selimozturk.rickandmortyapp.adapters.CharactersAdapter
 import com.selimozturk.rickandmortyapp.databinding.ActivityMainBinding
+import com.selimozturk.rickandmortyapp.domain.models.CharacterDomainData
 import com.selimozturk.rickandmortyapp.util.showToast
 import com.selimozturk.rickandmortyapp.viewmodels.CharactersViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -22,6 +23,7 @@ import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
+    
     private val viewModel: CharactersViewModel by viewModels()
     private var listTypeControl: Boolean = true
     private val charactersAdapter = CharactersAdapter()
@@ -30,31 +32,41 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+    }
+
+    override fun onStart() {
+        super.onStart()
         setupCharactersRecyclerView()
+        initViews()
+        submitDataToCharactersAdapter("", "")
         filterCharacters()
+    }
+
+    private fun initViews() {
         binding.listTypeIcon.setOnClickListener {
             listTypeControl = !listTypeControl
             setupCharactersRecyclerView()
             setListTypeIcon(binding.listTypeIcon)
         }
         charactersAdapter.addLoadStateListener { loadStates ->
-            binding.charactersLoadingProgressBar.visibility = if (loadStates.refresh is LoadState.Loading) View.VISIBLE else View.GONE
-            binding.retryButton.visibility=(if (loadStates.refresh is LoadState.Error) View.VISIBLE else View.GONE)
+            binding.charactersLoadingProgressBar.visibility =
+                if (loadStates.refresh is LoadState.Loading) View.VISIBLE else View.GONE
+            binding.retryButton.visibility =
+                (if (loadStates.refresh is LoadState.Error) View.VISIBLE else View.GONE)
         }
-        charactersAdapter.onItemClicked = {
-            val intent = Intent(this, CharacterDetailActivity::class.java)
-            intent.putExtra("characterId", it.id.toString())
-            intent.putExtra("isCharacterFavorite", it.isFavorite.toString())
-            startActivity(intent)
-        }
-        binding.retryButton.setOnClickListener {
-            charactersAdapter.retry()
-        }
+        charactersAdapter.onItemClicked = ::onItemClicked
+        binding.retryButton.setOnClickListener(::onRetryButtonClicked)
     }
 
-    override fun onStart() {
-        super.onStart()
-        submitDataToCharactersAdapter("","")
+    private fun onItemClicked(character: CharacterDomainData) {
+        val intent = Intent(this, CharacterDetailActivity::class.java)
+        intent.putExtra("characterId", character.id.toString())
+        intent.putExtra("isCharacterFavorite", character.isFavorite.toString())
+        startActivity(intent)
+    }
+
+    private fun onRetryButtonClicked(view: View) {
+        charactersAdapter.retry()
     }
 
     private fun filterCharacters() {
@@ -68,7 +80,7 @@ class MainActivity : AppCompatActivity() {
             } else {
                 selectedStatus = ""
             }
-            submitDataToCharactersAdapter(selectedStatus,searchCharacterName)
+            submitDataToCharactersAdapter(selectedStatus, searchCharacterName)
         }
         binding.etSearch.addTextChangedListener { editable ->
             editable?.let {
@@ -76,40 +88,33 @@ class MainActivity : AppCompatActivity() {
                     ""
                 }
             }
-            submitDataToCharactersAdapter(selectedStatus,searchCharacterName)
+            submitDataToCharactersAdapter(selectedStatus, searchCharacterName)
         }
     }
 
-    private fun submitDataToCharactersAdapter(selectedStatus:String,searchCharacterName:String){
+    private fun submitDataToCharactersAdapter(selectedStatus: String, searchCharacterName: String) {
         lifecycleScope.launch {
             viewModel.getAllCharacters(selectedStatus, searchCharacterName)
                 .observe(this@MainActivity) {
-                    it?.let {
-                        charactersAdapter.submitData(lifecycle, it)
-                        charactersAdapter.favoriteCharacterItems = viewModel.getAllFavoriteCharacter()
-                    }
+                    charactersAdapter.submitData(lifecycle, it)
+                    charactersAdapter.favoriteCharacterItems = viewModel.getAllFavoriteCharacter()
                 }
         }
     }
 
     private fun setupCharactersRecyclerView() {
-        if (listTypeControl) {
-            val gridLayoutManager = GridLayoutManager(this, 2)
-            binding.charactersRW.layoutManager = gridLayoutManager
-            charactersAdapter.listType = 2
+        binding.charactersRW.layoutManager = if (listTypeControl) {
+            GridLayoutManager(this, 2)
         } else {
-            val linearLayoutManager = LinearLayoutManager(this)
-            binding.charactersRW.layoutManager = linearLayoutManager
-            charactersAdapter.listType = 1
+            LinearLayoutManager(this)
         }
         binding.charactersRW.adapter = charactersAdapter
+        charactersAdapter.listType = if (listTypeControl) 2 else 1
     }
 
     private fun setListTypeIcon(imageView: ImageView) {
-        val icon = when (!listTypeControl) {
-            true -> R.drawable.ic_grid
-            else -> R.drawable.ic_line
-        }
+        val icon = if (!listTypeControl) R.drawable.ic_grid else R.drawable.ic_line
         imageView.setImageResource(icon)
     }
+
 }

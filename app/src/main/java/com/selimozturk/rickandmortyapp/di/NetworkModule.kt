@@ -19,13 +19,14 @@ object NetworkModule {
     fun provideMoshi(): Moshi {
         return Moshi.Builder().build()
     }
+
     @Singleton
     @Provides
     fun provideRetrofit(moshi: Moshi): Retrofit.Builder {
-        return Retrofit.Builder()
-            .baseUrl(Constants.BASE_URL)
+        return Retrofit.Builder().baseUrl(Constants.BASE_URL)
             .addConverterFactory(MoshiConverterFactory.create())
     }
+
     @Singleton
     @Provides
     fun provideRickAndMortyApi(retrofit: Retrofit.Builder): RickAndMortyApi {

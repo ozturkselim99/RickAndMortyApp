@@ -26,7 +26,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/alive"
                 android:textSize="14sp"
-                app:chipStrokeColor="#E3E5E5"
+                app:chipStrokeColor="@color/chipStrokeColor"
                 app:chipStrokeWidth="1dp" />
 
             <com.google.android.material.chip.Chip
@@ -35,7 +35,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/dead"
                 android:textSize="14sp"
-                app:chipStrokeColor="#E3E5E5"
+                app:chipStrokeColor="@color/chipStrokeColor"
                 app:chipStrokeWidth="1dp" />
 
             <com.google.android.material.chip.Chip
@@ -44,7 +44,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/unknown"
                 android:textSize="14sp"
-                app:chipStrokeColor="#E3E5E5"
+                app:chipStrokeColor="@color/chipStrokeColor"
                 app:chipStrokeWidth="1dp" />
 
         </com.google.android.material.chip.ChipGroup>

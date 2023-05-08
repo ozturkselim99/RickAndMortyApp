@@ -1,6 +1,6 @@
 package com.selimozturk.rickandmortyapp.domain.models
 
-data class CharacterDetailDomainData (
+data class CharacterDetailDomainData(
     val id: Int,
     val image: String,
     val name: String,

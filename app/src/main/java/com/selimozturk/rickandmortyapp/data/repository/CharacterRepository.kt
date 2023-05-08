@@ -21,7 +21,7 @@ class CharacterRepository @Inject constructor(
     private val localDataSource: RickAndMortyDao,
 ) {
     suspend fun getCharacter(id: Int): CharacterDetailDomainData? {
-        var character: CharacterDetailDomainData?=null
+        var character: CharacterDetailDomainData? = null
         val response = remoteDataSource.getCharacter(id)
         if (response.isSuccessful) {
             val characterData = response.body()
@@ -32,26 +32,25 @@ class CharacterRepository @Inject constructor(
         return character
     }
 
-    suspend fun insertFavoriteCharacter(characterDomainData: CharacterDomainData){
+    suspend fun insertFavoriteCharacter(characterDomainData: CharacterDomainData) {
         localDataSource.insertFavoriteCharacter(characterDomainData.characterDomainDataToFavoriteCharacter())
     }
 
-    fun getAllFavoriteCharacters():List<CharacterDomainData>{
-        return localDataSource.getAllFavoriteCharacters().favoriteCharacterListToCharacterDomainDataList()
+    fun getAllFavoriteCharacters(): List<CharacterDomainData> {
+        return localDataSource.getAllFavoriteCharacters()
+            .favoriteCharacterListToCharacterDomainDataList()
     }
 
-    suspend fun deleteFavoriteCharacter(characterId:Int){
+    suspend fun deleteFavoriteCharacter(characterId: Int) {
         localDataSource.deleteFavoriteCharacter(characterId)
     }
 
     fun getAllCharacters(status: String, name: String): LiveData<PagingData<CharacterData>> {
-        return Pager(
-            config = PagingConfig(
-                pageSize = 25,
-            ),
-            pagingSourceFactory = {
-                CharactersPagingSource(remoteDataSource, name,status)
-            }
-        ).liveData
+        return Pager(config = PagingConfig(
+            pageSize = 25,
+        ), pagingSourceFactory = {
+            CharactersPagingSource(remoteDataSource, name, status)
+        }).liveData
     }
+
 }

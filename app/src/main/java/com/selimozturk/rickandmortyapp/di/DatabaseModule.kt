@@ -18,10 +18,13 @@ object DatabaseModule {
     @Provides
     @Singleton
     fun provideRickAndMortyDatabase(@ApplicationContext context: Context): RickAndMortyDatabase {
-        return Room.databaseBuilder(context, RickAndMortyDatabase::class.java, Constants.DATABASE_NAME)
-            .allowMainThreadQueries()
-            .build()
+        return Room.databaseBuilder(
+            context,
+            RickAndMortyDatabase::class.java,
+            Constants.DATABASE_NAME
+        ).allowMainThreadQueries().build()
     }
+
     @Singleton
     @Provides
     fun provideNewsDao(rickAndMortyDatabase: RickAndMortyDatabase): RickAndMortyDao {

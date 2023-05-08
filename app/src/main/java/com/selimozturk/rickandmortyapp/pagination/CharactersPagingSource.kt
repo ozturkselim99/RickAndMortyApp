@@ -28,9 +28,7 @@ class CharactersPagingSource @Inject constructor(
                 nextPageNumber = nextPageQuery?.toInt()
             }
             LoadResult.Page(
-                data = response.body()!!.results,
-                prevKey = null,
-                nextKey = nextPageNumber
+                data = response.body()!!.results, prevKey = null, nextKey = nextPageNumber
             )
         } catch (e: Exception) {
             LoadResult.Error(e)

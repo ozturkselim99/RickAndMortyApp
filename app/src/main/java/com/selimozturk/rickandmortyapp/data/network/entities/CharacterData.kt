@@ -27,6 +27,12 @@ data class CharacterData(
     val created: String
 )
 
+suspend fun getLastSeenEpisodeInfo(url: String): String = withContext(Dispatchers.IO) {
+    val jsonData = URL(url).readText()
+    val jsonObject = JSONObject(jsonData)
+    jsonObject.getString("name") + " - " + jsonObject.getString("air_date")
+}
+
 fun LiveData<PagingData<CharacterData>>.characterDataListToCharacterDomainDataList(): LiveData<PagingData<CharacterDomainData>> {
     return map { pagingData ->
         pagingData.map {
@@ -42,6 +48,7 @@ fun LiveData<PagingData<CharacterData>>.characterDataListToCharacterDomainDataLi
 }
 
 fun CharacterData.characterDataToCharacterDetailDomainData(): CharacterDetailDomainData {
+    val lastSeenEpisodeInfo = runBlocking { getLastSeenEpisodeInfo(episode.last()) }
     return CharacterDetailDomainData(
         id,
         image,
@@ -52,19 +59,6 @@ fun CharacterData.characterDataToCharacterDetailDomainData(): CharacterDetailDom
         gender,
         origin.name,
         location.name,
-        getLastSeenEpisodeInfo(episode.last().toString())
+        lastSeenEpisodeInfo
     )
-}
-
-private fun getLastSeenEpisodeInfo(url: String): String {
-    var lastSeenEpisodeInfo: String
-    runBlocking {
-        withContext(Dispatchers.IO) {
-            val jsonData = URL(url).readText()
-            val jsonObject = JSONObject(jsonData)
-            lastSeenEpisodeInfo =
-                jsonObject.getString("name") + " - " + jsonObject.getString("air_date")
-        }
-    }
-    return lastSeenEpisodeInfo
 }
